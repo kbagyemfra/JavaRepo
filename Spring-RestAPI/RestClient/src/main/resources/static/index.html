@@ -1,0 +1,31 @@
+<html>
+<head>
+<title>Rest Client</title>
+</head>
+<body>
+<script>
+	function getEmployeeList() {
+		let pageSize = document.getElementById("pageSize").value;
+		let pageNumber = document.getElementById("pageNumber").value;
+		let xhr = new XMLHttpRequest();
+		let url = "http://localhost:8080/employee/getPage?pageNumber=1&pageSize=3&sortBy=name";
+		xhr.open("GET", url, true);
+		xhr.onload = function() {
+			let response = JSON.parse(xhr.responseText);
+			if (xhr.status === "200") {
+				document.getElementById("jsonOutput").innerHTML = response;
+			} else {
+				document.getElementById("jsonOutput").innerHTML = "Error";
+				console.log(response);
+			}
+		};
+		xhr.send();
+	}
+</script>
+<h1>Restful API Client</h1>
+<p>Page Size: <input type="number" id="pageSize" value="3"></p>
+<p>Page Number: <input type="number" id="pageNumber" value="1"></p>
+<p><input type="button" value="Show List of Employees" onclick="getEmployeeList();">
+<p id="jsonOutput"></p>
+</body>
+</html>
